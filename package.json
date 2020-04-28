@@ -1,0 +1,36 @@
+{
+  "name": "cordova-plugin-GPlay-install-referrer",
+  "version": "1.0.0",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-GPlay-install-referrer",
+    "platforms": [
+      "android"
+    ]
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git"
+  },
+  "keywords": [
+    "Referrer",
+    "Google Play",
+    "Install Referrer",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": {
+    "name": "cordova",
+    "version": ">=3.0.0"
+  },
+  "author": "Shadrach Temitayo <shadrachtemitayo@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer/issues"
+  },
+  "homepage": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer#readme"
+}
