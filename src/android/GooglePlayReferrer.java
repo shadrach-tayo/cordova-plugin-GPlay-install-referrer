@@ -2,7 +2,10 @@ package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
+import android.content.SharedPreferences;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +30,12 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         long referrerClickTime = response.getReferrerClickTimestampSeconds();
                         long appInstallTime = response.getInstallBeginTimestampSeconds();
                         boolean instantExperienceLaunched = response.getGooglePlayInstantParam();
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+                        Editor edit = sharedPreferences.edit();
+                        edit.putString("referrer", referrerUrl);
+                        edit.commit();
 
                         callbackContext.success(referrerUrl);
                         referrerClient.endConnection();
