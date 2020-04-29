@@ -12,7 +12,7 @@ GooglePlayReferrer.prototype.getReferrer = function (
     errorCallback,
     "GooglePlayReferrer",
     "getReferrer",
-    [options]
+    []
   );
 };
 
