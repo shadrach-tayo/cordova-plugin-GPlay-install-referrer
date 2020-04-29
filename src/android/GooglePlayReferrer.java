@@ -2,6 +2,10 @@ package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import com.android.installreferrer.api.InstallReferrerClient;
+import com.android.installreferrer.api.InstallReferrerStateListener;
+import com.android.installreferrer.api.ReferrerDetails;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -15,9 +19,8 @@ public class GooglePlayReferrer extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        InstallReferrerClient referrerClient;
 
-        referrerClient = InstallReferrerClient.newBuilder(this).build();
+        InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
         referrerClient.startConnection(new InstallReferrerStateListener() {
 
             @Override
@@ -25,14 +28,13 @@ public class GooglePlayReferrer extends CordovaPlugin {
                 switch (responseCode) {
                     case InstallReferrerResponse.OK:
                         // Connection established.
+                        Log.d(LOG_TAG, "InstallReferrer Response.OK");
+
                         ReferrerDetails response = referrerClient.getInstallReferrer();
                         String referrerUrl = response.getInstallReferrer();
-                        long referrerClickTime = response.getReferrerClickTimestampSeconds();
-                        long appInstallTime = response.getInstallBeginTimestampSeconds();
-                        boolean instantExperienceLaunched = response.getGooglePlayInstantParam();
+                        Log.d(LOG_TAG, "InstallReferrer " + referrerUrl);
 
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
                         Editor edit = sharedPreferences.edit();
                         edit.putString("referrer", referrerUrl);
                         edit.commit();
@@ -43,15 +45,23 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         break;
                     case InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
                         // API not available on the current Play Store app.
+                        Log.w(LOG_TAG, "InstallReferrer Response.FEATURE_NOT_SUPPORTED");
 
                         callbackContext.error("Feature not supported");
                         referrerClient.endConnection();
                         break;
                     case InstallReferrerResponse.SERVICE_UNAVAILABLE:
                         // Connection couldn't be established.
+                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_UNAVAILABLE");
 
                         callbackContext.success("connction couldn't be established");
                         referrerClient.endConnection();
+                        break;
+                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_DISCONNECTED:
+                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_DISCONNECTED");
+                        break;
+                    case InstallReferrerClient.InstallReferrerResponse.DEVELOPER_ERROR:
+                        Log.w(LOG_TAG, "InstallReferrer Response.DEVELOPER_ERROR");
                         break;
                 }
             }
