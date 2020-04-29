@@ -16,7 +16,7 @@
     </engines>
   
     <js-module src="www/googlePlayReferrer.js" name="googlePlayReferrer">
-        <clobbers target="cordova.plugins.googlePlayReferrer" />
+        <clobbers target="window.plugins.googlePlayReferrer" />
     </js-module>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
