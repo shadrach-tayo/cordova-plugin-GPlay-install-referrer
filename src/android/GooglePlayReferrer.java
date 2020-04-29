@@ -2,9 +2,10 @@ package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-import com.android.installreferrer.api.InstallReferrerClient;
-import com.android.installreferrer.api.InstallReferrerStateListener;
-import com.android.installreferrer.api.ReferrerDetails;
+import com.android.installreferrer.api;
+// import com.android.installreferrer.api.InstallReferrerClient;
+// import com.android.installreferrer.api.InstallReferrerStateListener;
+// import com.android.installreferrer.api.ReferrerDetails;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 
 public class GooglePlayReferrer extends CordovaPlugin {
     public static String data = "";
+    private static final String LOG_TAG = "MYPlugin";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
