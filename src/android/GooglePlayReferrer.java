@@ -2,7 +2,6 @@ package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-// import com.android.installreferrer.api;
 import android.os.RemoteException;
 
 import com.android.installreferrer.api.InstallReferrerClient;
