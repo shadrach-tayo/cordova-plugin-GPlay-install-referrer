@@ -12,7 +12,11 @@ GooglePlayReferrer.prototype.getReferrer = function (
     errorCallback,
     "GooglePlayReferrer",
     "getReferrer",
-    []
+    [
+      {
+        instance: "referrer",
+      },
+    ]
   );
 };
 
