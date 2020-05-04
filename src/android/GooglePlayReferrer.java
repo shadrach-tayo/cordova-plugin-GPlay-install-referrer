@@ -16,7 +16,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,13 +26,6 @@ public class GooglePlayReferrer extends CordovaPlugin {
     private static final String LOG_TAG = "GPlayInstallReferrer";
     Context context;
     InstallReferrerClient referrerClient = null;
-
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        Log.d(LOG_TAG, "My plugin has been initialized");
-        super.initialize(cordova, webView);
-
-    }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
