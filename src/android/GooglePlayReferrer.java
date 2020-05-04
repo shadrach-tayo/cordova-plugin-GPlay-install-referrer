@@ -8,11 +8,13 @@ import com.android.installreferrer.api.InstallReferrerClient;
 import com.android.installreferrer.api.InstallReferrerStateListener;
 import com.android.installreferrer.api.ReferrerDetails;
 
+import android.util.Log;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,14 +22,21 @@ import org.json.JSONException;
 
 
 public class GooglePlayReferrer extends CordovaPlugin {
-    public static String data = "";
-    private static final String LOG_TAG = "MYPlugin";
+    private static final String LOG_TAG = "GPlayInstallReferrer";
+    Context context;
     InstallReferrerClient referrerClient = null;
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+        Log.d(LOG_TAG, "My plugin has been initialized");
 
-        referrerClient = InstallReferrerClient.newBuilder(this).build();
+    }
+
+    @Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        context = this.cordova.getContext();
+        referrerClient = InstallReferrerClient.newBuilder(this.cordova.getContext()).build();
         referrerClient.startConnection(new InstallReferrerStateListener() {
 
             @Override
@@ -35,13 +44,13 @@ public class GooglePlayReferrer extends CordovaPlugin {
                 switch (responseCode) {
                     case InstallReferrerClient.InstallReferrerResponse.OK:
                         // Connection established.
-                        // Log.d(LOG_TAG, "InstallReferrer Response.OK");
+                         Log.d(LOG_TAG, "InstallReferrer Response.OK");
                         try {
 
                             ReferrerDetails response = referrerClient.getInstallReferrer();
                             String referrerUrl = response.getInstallReferrer();
-                            // Log.d(LOG_TAG, "InstallReferrer " + referrerUrl);
-                            Context context = this.cordova.getActivity().getApplicationContext();
+                             Log.d(LOG_TAG, "InstallReferrer " + referrerUrl);
+
 
                             SharedPreferences sharedPreferences = PreferenceManager
                                     .getDefaultSharedPreferences(context);
@@ -60,25 +69,25 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         break;
                     case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
                         // API not available on the current Play Store app.
-                        // Log.w(LOG_TAG, "InstallReferrer Response.FEATURE_NOT_SUPPORTED");
+                         Log.w(LOG_TAG, "InstallReferrer Response.FEATURE_NOT_SUPPORTED");
 
                         callbackContext.error("Feature not supported");
                         referrerClient.endConnection();
                         break;
                     case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
                         // Connection couldn't be established.
-                        // Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_UNAVAILABLE");
+                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_UNAVAILABLE");
 
-                        callbackContext.success("connction couldn't be established");
+                        callbackContext.success("connection couldn't be established");
                         referrerClient.endConnection();
                         break;
                     case InstallReferrerClient.InstallReferrerResponse.SERVICE_DISCONNECTED:
-                        // Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_DISCONNECTED");
+                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_DISCONNECTED");
                         callbackContext.error("SERVICE_DISCONNECTED");
                         referrerClient.endConnection();
                         break;
                     case InstallReferrerClient.InstallReferrerResponse.DEVELOPER_ERROR:
-                        // Log.w(LOG_TAG, "InstallReferrer Response.DEVELOPER_ERROR");
+                        Log.w(LOG_TAG, "InstallReferrer Response.DEVELOPER_ERROR");
                         callbackContext.error("DEVELOPER_ERROR");
                         referrerClient.endConnection();
                         break;
