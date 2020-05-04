@@ -23,7 +23,7 @@
                 <param name="android-package" value="com.shadrach.cordova.plugin.GooglePlayReferrer"/>
             </feature>
         </config-file>
-        <config-file target="AndroidManifest.xml" parent="/*">
+        <config-file target="res/xml/config.xml" parent="/*">
             <receiver android:exported="true" android:name="com.shadrach.cordova.plugin.Receiver">
                 <intent-filter>
                     <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
