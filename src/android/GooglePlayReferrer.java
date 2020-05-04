@@ -33,7 +33,7 @@ public class GooglePlayReferrer extends CordovaPlugin {
             @Override
             public void onInstallReferrerSetupFinished(int responseCode) {
                 switch (responseCode) {
-                    case InstallReferrerResponse.OK:
+                    case InstallReferrerClient.InstallReferrerResponse.OK:
                         // Connection established.
                         // Log.d(LOG_TAG, "InstallReferrer Response.OK");
                         try {
@@ -41,6 +41,7 @@ public class GooglePlayReferrer extends CordovaPlugin {
                             ReferrerDetails response = referrerClient.getInstallReferrer();
                             String referrerUrl = response.getInstallReferrer();
                             // Log.d(LOG_TAG, "InstallReferrer " + referrerUrl);
+                            Context context = this.cordova.getActivity().getApplicationContext();
 
                             SharedPreferences sharedPreferences = PreferenceManager
                                     .getDefaultSharedPreferences(context);
@@ -57,14 +58,14 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         }
 
                         break;
-                    case InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
+                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
                         // API not available on the current Play Store app.
                         // Log.w(LOG_TAG, "InstallReferrer Response.FEATURE_NOT_SUPPORTED");
 
                         callbackContext.error("Feature not supported");
                         referrerClient.endConnection();
                         break;
-                    case InstallReferrerResponse.SERVICE_UNAVAILABLE:
+                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
                         // Connection couldn't be established.
                         // Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_UNAVAILABLE");
 
