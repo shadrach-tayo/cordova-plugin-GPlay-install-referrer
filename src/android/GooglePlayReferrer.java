@@ -1,6 +1,8 @@
 package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import android.os.RemoteException;
 
@@ -28,8 +30,8 @@ public class GooglePlayReferrer extends CordovaPlugin {
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
         Log.d(LOG_TAG, "My plugin has been initialized");
+        super.initialize(cordova, webView);
 
     }
 
