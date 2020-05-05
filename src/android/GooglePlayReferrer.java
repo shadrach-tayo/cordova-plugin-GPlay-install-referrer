@@ -1,4 +1,4 @@
-package com.shadrach.cordova.plugins.GooglePlayReferrer;
+package com.shadrach.cordova.plugin.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
