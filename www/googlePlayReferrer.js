@@ -8,11 +8,11 @@ GooglePlayReferrer.prototype.getReferrer = function (
   errorCallback
 ) {
   console.log("get referrer plugin called");
-  if (!successCallback) {
-    return new Promise((resolve, reject) => {
-      this.getReferrer(resolve, reject);
-    });
-  }
+  // if (!successCallback) {
+  //   return new Promise((resolve, reject) => {
+  //     this.getReferrer(resolve, reject);
+  //   });
+  // }
 
   cordova.exec(
     successCallback,
