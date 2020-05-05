@@ -95,11 +95,19 @@ public class GooglePlayReferrer extends CordovaPlugin {
                 // Google Play by calling the startConnection() method.
             }
 
+<<<<<<< HEAD
             
         });
         
         
         return true;
+=======
+        return true;
+
+        });
+
+        
+>>>>>>> 157d75707f82eb487d45046af5357cc3655ce5c6
 
     }
 }
