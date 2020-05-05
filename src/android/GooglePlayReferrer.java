@@ -88,7 +88,7 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         break;
                 }
             }
-
+            
             @Override
             public void onInstallReferrerServiceDisconnected() {
                 // Try to restart the connection on the next request to
@@ -97,8 +97,7 @@ public class GooglePlayReferrer extends CordovaPlugin {
             
         });
         
-        
-        return true;
+        return true;        
 
     }
 }
