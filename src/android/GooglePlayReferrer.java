@@ -87,18 +87,11 @@ public class GooglePlayReferrer extends CordovaPlugin {
                         referrerClient.endConnection();
                         break;
                 }
-            }
-
-            @Override
-            public void onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
+            }           
             
         });
         
-        
-        return true;
+        return true;        
 
     }
 }
