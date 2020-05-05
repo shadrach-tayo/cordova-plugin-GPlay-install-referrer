@@ -94,7 +94,6 @@ public class GooglePlayReferrer extends CordovaPlugin {
                 // Try to restart the connection on the next request to
                 // Google Play by calling the startConnection() method.
             }
-
             
         });
         
