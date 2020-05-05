@@ -1,26 +1,24 @@
-// Empty constructor
+var exec = require("cordova/exec");
+
 function GooglePlayReferrer() {}
 
 // The function that passes work along to native shells
-// Message is a string, duration may be 'long' or 'short'
 GooglePlayReferrer.prototype.getReferrer = function (
   successCallback,
   errorCallback
 ) {
-  console.log("get referrer plugin called");
+  console.log("get referrer plugin called: ");
   // if (!successCallback) {
   //   return new Promise((resolve, reject) => {
   //     this.getReferrer(resolve, reject);
   //   });
   // }
 
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "GooglePlayReferrer",
-    "getReferrer",
-    []
-  );
+  exec(successCallback, errorCallback, "GooglePlayReferrer", "getReferrer", [
+    {
+      instance: "",
+    },
+  ]);
 };
 
 // Installation constructor that binds ToastyPlugin to window
@@ -29,6 +27,6 @@ GooglePlayReferrer.install = function () {
     window.plugins = {};
   }
   window.plugins.googlePlayReferrer = new GooglePlayReferrer();
-  return window.plugins.googlePlayReferrer;
+  return window.plugins;
 };
 cordova.addConstructor(GooglePlayReferrer.install);
