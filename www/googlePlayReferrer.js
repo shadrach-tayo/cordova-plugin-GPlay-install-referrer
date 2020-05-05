@@ -1,7 +1,7 @@
 var exec = require("cordova/exec");
 
 function getReferrer(successCallback, errorCallback) {
-  if (!success) {
+  if (!successCallback) {
     return new Promise(function (resolve, reject) {
       getReferrer(resolve, reject);
     });
