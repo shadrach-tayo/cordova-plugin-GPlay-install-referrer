@@ -1,7 +1,16 @@
 var exec = require("cordova/exec");
 
-function getReferrer(success, error) {
-  exec(success, error, "GooglePlayReferrer", "getReferrer");
+function getReferrer() {
+  exec(
+    function success(data) {
+      console.log("success ", data);
+    },
+    function error(reason) {
+      console.log("error ", reason);
+    },
+    "GooglePlayReferrer",
+    "getReferrer"
+  );
 }
 
 exports.getReferrer = getReferrer;
