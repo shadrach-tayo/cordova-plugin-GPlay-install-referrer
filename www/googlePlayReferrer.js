@@ -3,17 +3,9 @@ function GooglePlayReferrer() {}
 
 // The function that passes work along to native shells
 // Message is a string, duration may be 'long' or 'short'
-GooglePlayReferrer.prototype.getReferrer = function (
-  successCallback,
-  errorCallback
-) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "GooglePlayReferrer",
-    "getReferrer",
-    []
-  );
+GooglePlayReferrer.prototype.getReferrer = function (successCallback, errorCallback) {
+  var options = {instance: "referrer"};
+  cordova.exec(successCallback, errorCallback, "GooglePlayReferrer", "getReferrer",[options]);
 };
 
 // Installation constructor that binds ToastyPlugin to window

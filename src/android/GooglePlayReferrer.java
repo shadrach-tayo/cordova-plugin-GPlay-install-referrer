@@ -1,102 +1,112 @@
+// package com.shadrach.cordova.plugins.GooglePlayReferrer;
+
+// package org.apache.cordova.plugin;
+// import org.apache.cordova.CordovaPlugin;
+// import org.apache.cordova.CallbackContext;
+// import com.android.installreferrer.api;
+// import android.os.RemoteException;
+
+// import com.android.installreferrer.api.InstallReferrerClient;
+// import com.android.installreferrer.api.InstallReferrerStateListener;
+// import com.android.installreferrer.api.ReferrerDetails;
+
+// import android.content.Context;
+// import android.content.SharedPreferences;
+// import android.content.SharedPreferences;
+// import android.content.SharedPreferences.Editor;
+// import android.preference.PreferenceManager;
+
+// import org.json.JSONArray;
+// import org.json.JSONException;
+// import org.json.JSONObject;
+
+// taelium version 
+// import com.tealium.installreferrer.InstallReferrerReceiver;
+
+// public class GooglePlayReferrer extends CordovaPlugin {    
+
+//     @Override
+//     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+//        final JSONObject arguments = args.getJSONObject(0);
+//         String instanceName = arguments.optString("instance", null);
+//         // String dataType = action.equals("setPersistent") ? "persistent" : "volatile";
+//         if (instanceName != null) {
+//             initInstallReferrer(instanceNamecallbackContext);    
+//             return true;
+//         }
+//         callbackContext.error("Tealium Install Referrer: instance name not provided");
+//         return false;    
+//     }
+
+//     private void initInstallReferrer(String instanceName, CallbackContext callbackContext) {
+// 	    Context mContext = this.cordova.getActivity().getApplicationContext();        
+//         InstallReferrerReceiver.setReferrerPersistent(mContext, instanceName);
+       
+//         callbackContext.success("Tealium Install Referrer: Finished initialization");
+//     }
+// }
+
+
 package com.shadrach.cordova.plugins.GooglePlayReferrer;
 
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
-import android.os.RemoteException;
-
-import com.android.installreferrer.api.InstallReferrerClient;
-import com.android.installreferrer.api.InstallReferrerStateListener;
-import com.android.installreferrer.api.ReferrerDetails;
-
-import android.util.Log;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
-
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
-// import org.json.JSONObject;
-
+import android.content.Context;
 
 public class GooglePlayReferrer extends CordovaPlugin {
-    private static final String LOG_TAG = "GPlayInstallReferrer";
-    Context context;
-    InstallReferrerClient referrerClient = null;
-
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        context = this.cordova.getContext();
-        referrerClient = InstallReferrerClient.newBuilder(this.cordova.getContext()).build();
-        referrerClient.startConnection(new InstallReferrerStateListener() {
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+        if (!action.equals("getReferrer")) {
+            callbackContext.error("\"" + action + "\" is not a recognized action.");
+            return false;
+        }
 
-            @Override
-            public void onInstallReferrerSetupFinished(int responseCode) {
-                switch (responseCode) {
-                    case InstallReferrerClient.InstallReferrerResponse.OK:
-                        // Connection established.
-                         Log.d(LOG_TAG, "InstallReferrer Response.OK");
-                        try {
+        InstallReferrerClient referrerClient;
 
-                            ReferrerDetails response = referrerClient.getInstallReferrer();
-                            String referrerUrl = response.getInstallReferrer();
-                             Log.d(LOG_TAG, "InstallReferrer " + referrerUrl);
-
-
-                            SharedPreferences sharedPreferences = PreferenceManager
-                                    .getDefaultSharedPreferences(context);
-                            Editor edit = sharedPreferences.edit();
-                            edit.putString("referrer", referrerUrl);
-                            edit.commit();
-
-                            callbackContext.success(referrerUrl);
-                            referrerClient.endConnection();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                            callbackContext.error(e.getMessage());
-                            referrerClient.endConnection();
-                        }
-
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
-                        // API not available on the current Play Store app.
-                         Log.w(LOG_TAG, "InstallReferrer Response.FEATURE_NOT_SUPPORTED");
-
-                        callbackContext.error("Feature not supported");
-                        referrerClient.endConnection();
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
-                        // Connection couldn't be established.
-                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_UNAVAILABLE");
-
-                        callbackContext.success("connection couldn't be established");
-                        referrerClient.endConnection();
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_DISCONNECTED:
-                        Log.w(LOG_TAG, "InstallReferrer Response.SERVICE_DISCONNECTED");
-                        callbackContext.error("SERVICE_DISCONNECTED");
-                        referrerClient.endConnection();
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.DEVELOPER_ERROR:
-                        Log.w(LOG_TAG, "InstallReferrer Response.DEVELOPER_ERROR");
-                        callbackContext.error("DEVELOPER_ERROR");
-                        referrerClient.endConnection();
-                        break;
+        try {
+            referrerClient = InstallReferrerClient.newBuilder(this).build();
+            referrerClient.startConnection(new InstallReferrerStateListener() {
+                @Override
+                public void onInstallReferrerSetupFinished(int responseCode) {
+                    switch (responseCode) {
+                        case InstallReferrerResponse.OK:
+                            // Connection established.
+                            break;
+                        case InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
+                            // API not available on the current Play Store app.
+                            break;
+                        case InstallReferrerResponse.SERVICE_UNAVAILABLE:
+                            // Connection couldn't be established.
+                            break;
+                    }
                 }
-            }
+                @Override
+                public void onInstallReferrerServiceDisconnected() {
+                    // Try to restart the connection on the next request to
+                    // Google Play by calling the startConnection() method.
+                }
+            });
+        }
+        catch (JSONException e) {
+            callbackContext.error("Error encountered: " + e.getMessage());
+            return false;
+        }
 
-            @Override
-            public void onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
+        ReferrerDetails response = referrerClient.getInstallReferrer();
+        String referrerUrl = response.getInstallReferrer();
+        long referrerClickTime = response.getReferrerClickTimestampSeconds();
+        long appInstallTime = response.getInstallBeginTimestampSeconds();
+        boolean instantExperienceLaunched = response.getGooglePlayInstantParam();
 
-        });
+        // Send a positive result to the callbackContext
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+        callbackContext.sendPluginResult(pluginResult);
 
         return true;
-
     }
 }

@@ -1,21 +1,46 @@
 {
-  "name": "cordova-plugin-GPlay-install-referrer",
-  "version": "1.0.0",
-  "description": "",
+  "_from": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git",
+  "_id": "cordova-plugin-GPlay-install-referrer@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-GPlay-install-referrer",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer",
+    "rawSpec": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer",
+    "saveSpec": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git",
+    "fetchSpec": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git#51135a0b1b5a400409179fdf05bc42b73beb0581",
+  "_spec": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer",
+  "_where": "/Users/olalekan/Desktop/APPS/test_cordova",
+  "author": {
+    "name": "Shadrach Temitayo",
+    "email": "shadrachtemitayo@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer/issues"
+  },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-GPlay-install-referrer",
     "platforms": [
       "android"
     ]
   },
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "deprecated": false,
+  "description": "",
+  "engines": {
+    "name": "cordova",
+    "version": ">=3.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git"
-  },
+  "homepage": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer#readme",
   "keywords": [
     "Referrer",
     "Google Play",
@@ -23,14 +48,15 @@
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "engines": {
-    "name": "cordova",
-    "version": ">=3.0.0"
-  },
-  "author": "Shadrach Temitayo <shadrachtemitayo@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer/issues"
+  "main": "index.js",
+  "name": "cordova-plugin-GPlay-install-referrer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer.git"
   },
-  "homepage": "https://github.com/shadrach-tayo/cordova-plugin-GPlay-install-referrer#readme"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
 }
