@@ -1,6 +1,6 @@
 var exec = require("cordova/exec");
 
-function getReferrer(success, error) {
+function getReferrer(successCallback, errorCallback) {
   if (!success) {
     return new Promise(function (resolve, reject) {
       getReferrer(resolve, reject);
@@ -11,12 +11,12 @@ function getReferrer(success, error) {
     function success(ref) {
       console.log("success ", ref);
       if (ref) {
-        success(ref);
+        successCallback(ref);
       } else {
-        error("No referrer data");
+        errorCallback("No referrer data");
       }
     },
-    error,
+    errorCallback,
     "GooglePlayReferrer",
     "getReferrer"
   );
